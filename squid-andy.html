@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUID GAME — Support Andrew Shanaghy | Naas AFC U13s</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Bebas+Neue&family=Inter:wght@300;400;600;700;900&display=swap');
+
+  :root {
+    --squid-pink: #ED1B76;
+    --squid-teal: #067A6E;
+    --squid-dark: #1A1A2E;
+    --squid-darker: #0F0F1A;
+    --squid-gold: #FFD700;
+    --squid-red: #FF0844;
+    --naas-blue: #3B5BA8;
+    --naas-white: #EAEAEA;
+    --card-bg: rgba(255,255,255,0.04);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--squid-darker);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* ===== ANIMATED BACKGROUND ===== */
+  .bg-symbols {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .bg-symbols .shape {
+    position: absolute;
+    border: 2px solid rgba(237, 27, 118, 0.08);
+    animation: floatShape 20s infinite ease-in-out;
+  }
+
+  .bg-symbols .circle { width: 80px; height: 80px; border-radius: 50%; top: 10%; left: 5%; animation-delay: 0s; }
+  .bg-symbols .triangle { width: 0; height: 0; border-left: 40px solid transparent; border-right: 40px solid transparent; border-bottom: 70px solid rgba(237, 27, 118, 0.06); border-top: none; top: 30%; right: 8%; animation-delay: -5s; }
+  .bg-symbols .square { width: 60px; height: 60px; top: 60%; left: 12%; animation-delay: -10s; }
+  .bg-symbols .circle2 { width: 120px; height: 120px; border-radius: 50%; bottom: 15%; right: 5%; animation-delay: -3s; }
+  .bg-symbols .triangle2 { width: 0; height: 0; border-left: 30px solid transparent; border-right: 30px solid transparent; border-bottom: 52px solid rgba(237, 27, 118, 0.05); border-top: none; top: 50%; left: 50%; animation-delay: -8s; }
+  .bg-symbols .square2 { width: 90px; height: 90px; top: 5%; right: 25%; animation-delay: -13s; }
+
+  @keyframes floatShape {
+    0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
+    25% { transform: translateY(-30px) rotate(5deg); opacity: 0.8; }
+    50% { transform: translateY(10px) rotate(-3deg); opacity: 0.4; }
+    75% { transform: translateY(-15px) rotate(2deg); opacity: 0.7; }
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px 40px;
+    background: radial-gradient(ellipse at 50% 30%, rgba(237, 27, 118, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 80%, rgba(6, 122, 110, 0.08) 0%, transparent 50%);
+  }
+
+  .invitation-card {
+    background: linear-gradient(135deg, var(--squid-dark) 0%, #16213E 100%);
+    border: 1px solid rgba(237, 27, 118, 0.3);
+    border-radius: 4px;
+    padding: 50px 40px;
+    max-width: 500px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 0 80px rgba(237, 27, 118, 0.15), inset 0 0 60px rgba(0,0,0,0.3);
+  }
+
+  .invitation-card::before {
+    content: '';
+    position: absolute;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, var(--squid-pink), var(--squid-teal), var(--squid-pink));
+    z-index: -1;
+    opacity: 0.5;
+  }
+
+  .card-symbols {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 30px;
+  }
+
+  .card-symbols .sym {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sym-circle {
+    width: 36px; height: 36px;
+    border: 3px solid var(--squid-pink);
+    border-radius: 50%;
+  }
+
+  .sym-triangle {
+    width: 0; height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 34px solid var(--squid-pink);
+  }
+
+  .sym-square {
+    width: 30px; height: 30px;
+    border: 3px solid var(--squid-pink);
+  }
+
+  .sym-star {
+    color: var(--squid-pink);
+    font-size: 36px;
+    line-height: 1;
+  }
+
+  .quid-title {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 72px;
+    line-height: 0.95;
+    letter-spacing: 4px;
+    background: linear-gradient(180deg, #fff 30%, var(--squid-pink) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 4px;
+  }
+
+  .quid-subtitle {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 8px;
+    color: var(--squid-teal);
+    margin-bottom: 30px;
+  }
+
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: var(--squid-pink);
+    margin: 0 auto 24px;
+  }
+
+  .player-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 100px;
+    color: var(--squid-pink);
+    line-height: 1;
+    text-shadow: 0 0 40px rgba(237, 27, 118, 0.4);
+    margin-bottom: 8px;
+  }
+
+  .player-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .player-team {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 16px 48px;
+    background: linear-gradient(135deg, var(--squid-pink), #c4145f);
+    color: #fff;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 4px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(237, 27, 118, 0.4);
+  }
+
+  /* ===== SECTIONS ===== */
+  .section {
+    position: relative;
+    z-index: 1;
+    padding: 80px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 6px;
+    color: var(--squid-pink);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 42px;
+    margin-bottom: 24px;
+    line-height: 1.1;
+  }
+
+  .section-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.7);
+    max-width: 600px;
+  }
+
+  /* ===== PLAYER PROFILE ===== */
+  .profile-section {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .profile-image-wrapper {
+    position: relative;
+    width: 280px;
+    height: 350px;
+    flex-shrink: 0;
+  }
+
+  .profile-image {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--naas-blue), #2a4080);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .profile-image .jersey {
+    font-size: 120px;
+    opacity: 0.15;
+    position: absolute;
+  }
+
+  .profile-image .initials {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 72px;
+    color: #fff;
+    z-index: 1;
+    text-shadow: 2px 2px 20px rgba(0,0,0,0.5);
+  }
+
+  .profile-image-wrapper::after {
+    content: '015';
+    position: absolute;
+    bottom: -16px;
+    right: -16px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px;
+    color: var(--squid-pink);
+    opacity: 0.2;
+    line-height: 1;
+  }
+
+  .profile-info {
+    flex: 1;
+    min-width: 260px;
+  }
+
+  .profile-info .player-stat {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 15px;
+  }
+
+  .player-stat .label {
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 11px;
+  }
+
+  .player-stat .value {
+    font-weight: 700;
+    color: #fff;
+  }
+
+  /* ===== GAMES GRID ===== */
+  .games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+  }
+
+  .game-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 4px;
+    padding: 30px 24px;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .game-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: var(--squid-pink);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  .game-card:hover::before { transform: scaleX(1); }
+  .game-card:hover { border-color: rgba(237, 27, 118, 0.2); transform: translateY(-4px); }
+
+  .game-card .game-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .game-card .game-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .game-card .game-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.5;
+  }
+
+  .game-card .game-number {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    color: rgba(237, 27, 118, 0.3);
+    letter-spacing: 2px;
+  }
+
+  /* ===== PRIZE POOL ===== */
+  .piggybank {
+    text-align: center;
+    padding: 60px 20px;
+    background: radial-gradient(ellipse at center, rgba(255, 215, 0, 0.06) 0%, transparent 60%);
+    border-radius: 8px;
+    margin-top: 40px;
+  }
+
+  .prize-amount {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 80px;
+    background: linear-gradient(180deg, var(--squid-gold) 0%, #b8860b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .prize-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+
+  /* ===== DONATION TIERS ===== */
+  .tiers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  .tier {
+    background: var(--card-bg);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 4px;
+    padding: 28px 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .tier:hover {
+    border-color: var(--squid-pink);
+    background: rgba(237, 27, 118, 0.05);
+    transform: translateY(-2px);
+  }
+
+  .tier.featured {
+    border-color: var(--squid-pink);
+    background: rgba(237, 27, 118, 0.08);
+    position: relative;
+  }
+
+  .tier.featured::after {
+    content: 'POPULAR';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--squid-pink);
+    color: #fff;
+    font-size: 10px;
+    letter-spacing: 2px;
+    padding: 3px 12px;
+    border-radius: 2px;
+  }
+
+  .tier-amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .tier-name {
+    font-size: 12px;
+    color: var(--squid-pink);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .tier-perks {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.6;
+  }
+
+  /* ===== PROGRESS BAR ===== */
+  .progress-section {
+    margin-top: 50px;
+    text-align: center;
+  }
+
+  .progress-bar-outer {
+    width: 100%;
+    height: 8px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 20px 0 12px;
+  }
+
+  .progress-bar-inner {
+    height: 100%;
+    width: 45%;
+    background: linear-gradient(90deg, var(--squid-pink), var(--squid-teal));
+    border-radius: 4px;
+    animation: progressPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes progressPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+  }
+
+  .progress-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .progress-stats strong { color: #fff; }
+
+  /* ===== RULES ===== */
+  .rules-list {
+    margin-top: 30px;
+    counter-reset: rules;
+  }
+
+  .rule {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    align-items: flex-start;
+  }
+
+  .rule-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--squid-pink);
+    opacity: 0.6;
+    flex-shrink: 0;
+    width: 40px;
+  }
+
+  .rule-text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .rule-text strong {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 60px 20px 40px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .footer-logo .crest {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--naas-blue), #1e3a6e);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 16px;
+    border: 2px solid rgba(255,255,255,0.1);
+  }
+
+  .footer-club {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 4px;
+  }
+
+  .footer-note {
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+    margin-top: 20px;
+    line-height: 1.6;
+  }
+
+  .mask-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .mask-icon {
+    width: 40px;
+    height: 40px;
+    border: 2px solid rgba(237, 27, 118, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    opacity: 0.4;
+  }
+
+  .mask-icon.circle { border-radius: 50%; }
+  .mask-icon.square { border-radius: 2px; }
+  .mask-icon.triangle { 
+    width: 0; height: 0; 
+    border: none;
+    border-left: 20px solid transparent; 
+    border-right: 20px solid transparent; 
+    border-bottom: 35px solid rgba(237, 27, 118, 0.15); 
+  }
+
+  /* ===== SCANLINES OVERLAY ===== */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 600px) {
+    .quid-title { font-size: 52px; }
+    .player-number { font-size: 72px; }
+    .invitation-card { padding: 36px 24px; }
+    .section-title { font-size: 32px; }
+    .prize-amount { font-size: 56px; }
+    .profile-section { gap: 30px; }
+    .profile-image-wrapper { width: 220px; height: 280px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Floating background shapes -->
+<div class="bg-symbols">
+  <div class="shape circle"></div>
+  <div class="shape triangle"></div>
+  <div class="shape square"></div>
+  <div class="shape circle2"></div>
+  <div class="shape triangle2"></div>
+  <div class="shape square2"></div>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="invitation-card">
+    <div class="card-symbols">
+      <div class="sym"><div class="sym-circle"></div></div>
+      <div class="sym"><div class="sym-triangle"></div></div>
+      <div class="sym"><div class="sym-square"></div></div>
+      <div class="sym"><div class="sym-star">☆</div></div>
+    </div>
+
+    <div class="quid-title">QUID<br>GAME</div>
+    <div class="quid-subtitle">FUNDRAISING EVENT</div>
+
+    <div class="divider"></div>
+
+    <div class="player-number">015</div>
+    <div class="player-name">ANDREW SHANAGHY</div>
+    <div class="player-team">Playing for Naas AFC U13s</div>
+
+    <a class="cta-button" href="#">SUPPORT THIS PLAYER</a>
+  </div>
+</section>
+
+<!-- ===== PLAYER PROFILE ===== -->
+<section class="section">
+  <div class="section-label">PLAYER DOSSIER</div>
+  <div class="section-title">Player 015</div>
+
+  <div class="profile-section">
+    <div class="profile-image-wrapper">
+      <div class="profile-image">
+        <span class="jersey">⚽</span>
+        <span class="initials">AS</span>
+      </div>
+    </div>
+
+    <div class="profile-info">
+      <div class="player-stat">
+        <span class="label">Name</span>
+        <span class="value">Andrew Shanaghy</span>
+      </div>
+      <div class="player-stat">
+        <span class="label">Player No.</span>
+        <span class="value">015</span>
+      </div>
+      <div class="player-stat">
+        <span class="label">Club</span>
+        <span class="value">Naas AFC</span>
+      </div>
+      <div class="player-stat">
+        <span class="label">Squad</span>
+        <span class="value">U13s</span>
+      </div>
+      <div class="player-stat">
+        <span class="label">Kit</span>
+        <span class="value">O'Neills — Blue & White</span>
+      </div>
+      <div class="player-stat">
+        <span class="label">Status</span>
+        <span class="value" style="color: var(--squid-teal);">● ACTIVE</span>
+      </div>
+      <div class="player-stat">
+        <span class="label">Debt</span>
+        <span class="value" style="color: var(--squid-pink);">€0 <span style="font-size:11px;opacity:0.5">(plays for the love of the game)</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== THE GAMES ===== -->
+<section class="section">
+  <div class="section-label">THE CHALLENGES</div>
+  <div class="section-title">Six Games. One Winner.<br>Infinite Craic.</div>
+  <p class="section-text">Players must survive all six rounds to claim ultimate glory for their club. No squids were harmed in the making of this fundraiser.</p>
+
+  <div class="games-grid">
+    <div class="game-card">
+      <span class="game-number">GAME 01</span>
+      <span class="game-icon">🔴🟢</span>
+      <div class="game-name">RED LIGHT, GREEN LIGHT</div>
+      <div class="game-desc">Cross the pitch before the giant doll (the ref) catches you moving</div>
+    </div>
+    <div class="game-card">
+      <span class="game-number">GAME 02</span>
+      <span class="game-icon">🍬</span>
+      <div class="game-name">HONEYCOMB CHALLENGE</div>
+      <div class="game-desc">Carve out the Naas AFC crest from honeycomb without breaking it</div>
+    </div>
+    <div class="game-card">
+      <span class="game-number">GAME 03</span>
+      <span class="game-icon">🤝</span>
+      <div class="game-name">TUG OF WAR</div>
+      <div class="game-desc">Team strength decides who stays. Pick your side wisely.</div>
+    </div>
+    <div class="game-card">
+      <span class="game-number">GAME 04</span>
+      <span class="game-icon">🎱</span>
+      <div class="game-name">MARBLES</div>
+      <div class="game-desc">Bet everything on a game of skill with your partner. Emotional damage guaranteed.</div>
+    </div>
+    <div class="game-card">
+      <span class="game-number">GAME 05</span>
+      <span class="game-icon">🌉</span>
+      <div class="game-name">GLASS BRIDGE</div>
+      <div class="game-desc">Tempered or regular? Choose wrong and it's straight to the pub.</div>
+    </div>
+    <div class="game-card">
+      <span class="game-number">GAME 06</span>
+      <span class="game-icon">🦑</span>
+      <div class="game-name">THE QUID GAME</div>
+      <div class="game-desc">The final showdown. Attack and defence. Only one can win the quid.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRIZE POOL ===== -->
+<section class="section">
+  <div class="section-label">THE STAKES</div>
+  <div class="section-title">What's In The Piggybank?</div>
+
+  <div class="piggybank">
+    <div class="prize-amount">€45.6B*</div>
+    <div class="prize-label">Total Prize Pool</div>
+    <p style="font-size: 12px; color: rgba(255,255,255,0.2); margin-top: 16px;">*May actually be closer to a few hundred quid and bragging rights at the clubhouse</p>
+  </div>
+
+  <div class="progress-section">
+    <div class="section-label">FUNDRAISING PROGRESS</div>
+    <div class="progress-bar-outer">
+      <div class="progress-bar-inner"></div>
+    </div>
+    <div class="progress-stats">
+      <span><strong>€450</strong> raised</span>
+      <span>Target: <strong>€1,000</strong></span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DONATE ===== -->
+<section class="section">
+  <div class="section-label">PLACE YOUR BETS</div>
+  <div class="section-title">Back Player 015</div>
+  <p class="section-text">Every euro goes directly to Naas AFC U13s — new kits, equipment, and keeping these young players on the pitch.</p>
+
+  <div class="tiers">
+    <div class="tier">
+      <div class="tier-amount">€10</div>
+      <div class="tier-name">SPECTATOR</div>
+      <div class="tier-perks">Watch from the VIP room.<br>Your name on the wall of donors.</div>
+    </div>
+    <div class="tier featured">
+      <div class="tier-amount">€25</div>
+      <div class="tier-name">FRONT MAN</div>
+      <div class="tier-perks">You're calling the shots now.<br>Shoutout + undying gratitude.</div>
+    </div>
+    <div class="tier">
+      <div class="tier-amount">€50</div>
+      <div class="tier-name">VIP</div>
+      <div class="tier-perks">Golden mask status.<br>Legendary supporter of the club.</div>
+    </div>
+    <div class="tier">
+      <div class="tier-amount">€100</div>
+      <div class="tier-name">IL-NAM</div>
+      <div class="tier-perks">You're running the whole game.<br>Forever in Naas AFC history.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RULES ===== -->
+<section class="section">
+  <div class="section-label">THE CONTRACT</div>
+  <div class="section-title">Rules of the Game</div>
+
+  <div class="rules-list">
+    <div class="rule">
+      <div class="rule-num">01</div>
+      <div class="rule-text"><strong>A player must not stop playing.</strong> Andrew has committed to completing all challenges for Naas AFC U13s. There's no turning back.</div>
+    </div>
+    <div class="rule">
+      <div class="rule-num">02</div>
+      <div class="rule-text"><strong>A player who refuses to play will be eliminated.</strong> Eliminated from the craic, that is. Nobody actually gets hurt. This is Kildare, not Jeju Island.</div>
+    </div>
+    <div class="rule">
+      <div class="rule-num">03</div>
+      <div class="rule-text"><strong>Games may be terminated by majority vote.</strong> But let's be honest — once the competitive spirit kicks in at Naas AFC, nobody's voting to stop.</div>
+    </div>
+    <div class="rule">
+      <div class="rule-num">04</div>
+      <div class="rule-text"><strong>All donations go to the club.</strong> 100% of funds raised support Naas AFC U13s. Powered by ClubSpot Events.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-logo">
+    <div class="crest">NAFC</div>
+    <span class="footer-club">NAAS AFC — EST. 1986</span>
+  </div>
+
+  <a class="cta-button" href="#" style="margin-bottom: 24px;">SUPPORT ANDREW NOW</a>
+
+  <div class="mask-row">
+    <div class="mask-icon circle"></div>
+    <div class="mask-icon triangle"></div>
+    <div class="mask-icon square"></div>
+  </div>
+
+  <p class="footer-note">
+    QUID GAME Fundraising Event — Powered by ClubSpot Events<br>
+    This is a parody fundraiser. No players were eliminated.<br>
+    © 2026 Naas AFC. All rights reserved.
+  </p>
+</footer>
+
+</body>
+</html>
